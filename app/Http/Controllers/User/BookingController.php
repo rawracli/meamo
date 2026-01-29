@@ -23,9 +23,14 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
+        $user = \Illuminate\Support\Facades\Auth::user();
+
+        if (!$user->phone_number) {
+            return redirect()->route('profile.edit')
+                ->with('error', 'Silahkan lengkapi nomor HP Anda sebelum melakukan booking.');
+        }
+
         $validated = $request->validate([
-            'customer_name' => 'required|string|max:150',
-            'customer_email' => 'required|email|max:150',
             'service_id' => 'required|exists:services,id',
             'schedule_id' => 'required|exists:schedules,id',
             'notes' => 'nullable|string',
@@ -37,9 +42,12 @@ class BookingController extends Controller
             return back()->with('error', 'Jadwal yang dipilih sudah tidak tersedia!');
         }
 
+        $validated['user_id'] = $user->id;
+        $validated['status'] = 'pending';
+
         Booking::create($validated);
 
-        return redirect()->route('home')
+        return redirect()->route('dashboard')
             ->with('success', 'Booking berhasil! Kami akan segera menghubungi Anda.');
     }
 }

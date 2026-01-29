@@ -8,13 +8,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Booking extends Model
 {
     protected $fillable = [
-        'customer_name',
-        'customer_email',
+        'user_id',
         'service_id',
         'schedule_id',
         'status',
         'notes',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function service(): BelongsTo
     {
