@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use App\Models\Service;
 use App\Models\Schedule;
+use App\Models\Template;
+use App\Models\TemplateCategory;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -15,6 +18,22 @@ class HomeController extends Controller
         $services = Service::all();
 
         return view('user.home', compact('galleries', 'services'));
+    }
+
+    public function templates(Request $request)
+    {
+        $categories = TemplateCategory::orderBy('name')->get();
+
+        $templates = Template::with('category')
+            ->where('status', true)
+            ->when($request->category, function ($query) use ($request) {
+                $query->where('template_category_id', $request->category);
+            })
+            ->latest()
+            ->paginate(12)
+            ->withQueryString(); // penting: filter tetap saat pagination
+
+        return view('user.templates', compact('templates', 'categories'));
     }
 
     public function gallery()

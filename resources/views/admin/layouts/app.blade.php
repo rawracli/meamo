@@ -39,6 +39,10 @@
                    class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.galleries.*') ? 'bg-gray-700' : '' }}">
                     Gallery
                 </a>
+                <a href="{{ route('admin.templates.index') }}"
+                   class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.galleries.*') ? 'bg-gray-700' : '' }}">
+                    Templates
+                </a>
             </nav>
 
             <div class="absolute bottom-0 w-full p-4">

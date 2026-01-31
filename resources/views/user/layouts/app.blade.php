@@ -18,6 +18,8 @@
                 <div class="hidden md:flex space-x-8">
                     <a href="{{ route('home') }}"
                         class="{{ request()->routeIs('home') ? 'text-blue-600 font-semibold' : 'text-gray-700' }}">Home</a>
+                    <a href="{{ route('templates') }}"
+                        class="{{ request()->routeIs('templates') ? 'text-blue-600 font-semibold' : 'text-gray-700' }}">Template</a>
                     <a href="{{ route('gallery') }}"
                         class="{{ request()->routeIs('gallery') ? 'text-blue-600 font-semibold' : 'text-gray-700' }}">Gallery</a>
                     <a href="{{ route('services') }}"

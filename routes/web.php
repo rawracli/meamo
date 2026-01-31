@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\TemplateCategoriesController;
+use App\Http\Controllers\Admin\TemplateCategoryController;
+use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\BookingController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // User Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
+Route::get('/templates', [HomeController::class, 'templates'])->name('templates');
 Route::get('/services', [HomeController::class, 'services'])->name('services');
 Route::get('/schedules', [HomeController::class, 'schedules'])->name('schedules');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
@@ -48,6 +52,13 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 
     // Gallery Management
     Route::resource('galleries', GalleryController::class);
+
+    // Template Management
+    Route::resource('templates', TemplateController::class);
+    Route::resource(
+        'template-categories',
+        TemplateCategoryController::class
+    );
 });
 
 // User Dashboard & Profile
