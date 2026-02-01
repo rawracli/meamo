@@ -34,7 +34,7 @@
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
                         </path>
                     </svg>
-                    Book Now
+                    Pesan Sekarang
                 </a>
 
                 <a href="{{ route('profile.edit') }}"
@@ -43,7 +43,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
-                    Profile
+                    Profil
                 </a>
 
                 <form method="POST" action="{{ route('logout') }}" class="mt-8 pt-8 border-t">
@@ -55,15 +55,15 @@
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
                             </path>
                         </svg>
-                        Logout
+                        Keluar
                     </button>
                 </form>
             </nav>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Konten Utama -->
         <div class="flex-1 flex flex-col min-w-0 bg-gray-50">
-            <!-- Mobile Header -->
+            <!-- Header Mobile -->
             <header class="md:hidden bg-white shadow p-4 flex justify-between items-center">
                 <a href="{{ route('home') }}" class="text-xl font-bold text-blue-600">Meamo</a>
                 <a href="{{ route('dashboard') }}" class="text-gray-600">
@@ -78,7 +78,7 @@
                 <div class="px-6 py-4 flex justify-between items-center">
                     <h2 class="text-xl font-semibold text-gray-800">@yield('header')</h2>
                     <div class="text-sm text-gray-600 hidden md:block">
-                        Welcome, {{ Auth::user()->name }}
+                        Selamat datang, {{ Auth::user()->name }}
                     </div>
                 </div>
             </header>

@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Service Addons')
-@section('header', 'Manage Service Addons')
+@section('title', 'Tambahan Layanan')
+@section('header', 'Kelola Tambahan Layanan')
 
 @section('content')
     <div class="mb-4">
         <a href="{{ route('admin.service-addons.create') }}"
             class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            + Add New Addon
+            + Tambah Tambahan Baru
         </a>
     </div>
 
@@ -15,10 +15,10 @@
         <table class="w-full">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-left">Name</th>
-                    <th class="px-6 py-3 text-left">Price</th>
-                    <th class="px-6 py-3 text-left">Items Yield</th>
-                    <th class="px-6 py-3 text-left">Actions</th>
+                    <th class="px-6 py-3 text-left">Nama</th>
+                    <th class="px-6 py-3 text-left">Harga</th>
+                    <th class="px-6 py-3 text-left">Hasil Item</th>
+                    <th class="px-6 py-3 text-left">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y">
@@ -40,10 +40,10 @@
                             <a href="{{ route('admin.service-addons.edit', $addon) }}"
                                 class="text-yellow-600 hover:underline">Edit</a>
                             <form action="{{ route('admin.service-addons.destroy', $addon) }}" method="POST"
-                                onsubmit="return confirm('Delete this addon?');">
+                                onsubmit="return confirm('Hapus tambahan ini?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                                <button type="submit" class="text-red-600 hover:underline">Hapus</button>
                             </form>
                         </td>
                     </tr>

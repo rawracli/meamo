@@ -24,46 +24,46 @@
 
                 <a href="{{ route('admin.bookings.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.bookings.*') ? 'bg-gray-700' : '' }}">
-                    Bookings
+                    Pemesanan
                 </a>
 
                 <a href="{{ route('admin.services.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.services.*') ? 'bg-gray-700' : '' }}">
-                    Services
+                    Layanan
                 </a>
 
                 <a href="{{ route('admin.schedules.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.schedules.*') ? 'bg-gray-700' : '' }}">
-                    Schedules
+                    Jadwal
                 </a>
 
                 <a href="{{ route('admin.galleries.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.galleries.*') ? 'bg-gray-700' : '' }}">
-                    Gallery
+                    Galeri
                 </a>
                 <a href="{{ route('admin.items.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.items.*') ? 'bg-gray-700' : '' }}">
-                    Items
+                    Item
                 </a>
 
                 <a href="{{ route('admin.service-addons.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.service-addons.*') ? 'bg-gray-700' : '' }}">
-                    Addons
+                    Tambahan
                 </a>
 
                 <a href="{{ route('admin.promos.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.promos.*') ? 'bg-gray-700' : '' }}">
-                    Promos
+                    Promo
                 </a>
 
                 <a href="{{ route('admin.settings.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.settings.*') ? 'bg-gray-700' : '' }}">
-                    Settings
+                    Pengaturan
                 </a>
 
                 <a href="{{ route('admin.templates.index') }}"
                     class="block px-4 py-2 hover:bg-gray-700 {{ request()->routeIs('admin.galleries.*') ? 'bg-gray-700' : '' }}">
-                    Templates
+                    Template
                 </a>
             </nav>
 
@@ -71,13 +71,13 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
-                        Logout
+                        Keluar
                     </button>
                 </form>
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Konten Utama -->
         <div class="flex-1">
             <header class="bg-white shadow">
                 <div class="px-6 py-4">

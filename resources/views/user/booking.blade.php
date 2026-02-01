@@ -1,24 +1,24 @@
 @extends('user.layouts.dashboard')
 
-@section('title', 'Book Now')
-@section('header', 'New Booking')
+@section('title', 'Pesan Sekarang')
+@section('header', 'Pemesanan Baru')
 
 @section('content')
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {{-- Left Column: Booking Form --}}
+        {{-- Kolom Kiri: Form Pemesanan --}}
         <div class="lg:col-span-2">
             <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
                 <form action="{{ route('booking.store') }}" method="POST" id="bookingForm">
                     @csrf
 
                     <div class="mb-6">
-                        <label class="block mb-2 font-semibold">Service *</label>
+                        <label class="block mb-2 font-semibold">Layanan *</label>
                         <select id="service_select" name="service_id" class="w-full border rounded-lg px-4 py-3" required
                             onchange="updateForm()">
-                            <option value="">-- Select Service --</option>
+                            <option value="">-- Pilih Layanan --</option>
                             @foreach($services as $service)
-                                {{-- Prepare Item Yield Data --}}
+                                {{-- Siapkan Data Item Yield --}}
                                 @php
                                     $yieldData = $service->items->map(function ($item) {
                                         return ['name' => $item->name, 'quantity' => $item->pivot->quantity];
@@ -33,9 +33,9 @@
                         </select>
                     </div>
 
-                    <!-- Addons Section -->
+                    <!-- Bagian Addon -->
                     <div id="addons_section" class="mb-6 hidden">
-                        <label class="block mb-2 font-semibold">Add-ons</label>
+                        <label class="block mb-2 font-semibold">Tambahan</label>
                         <div class="grid grid-cols-1 gap-4">
                             @foreach($services->pluck('addons')->flatten()->unique('id') as $addon)
                                 @php
@@ -70,64 +70,64 @@
                     </div>
 
                     <div class="mb-6">
-                        <label class="block mb-2 font-semibold">Schedule *</label>
+                        <label class="block mb-2 font-semibold">Jadwal *</label>
                         <select id="schedule_select" name="schedule_id" class="w-full border rounded-lg px-4 py-3" required
                             onchange="checkPromo()">
-                            <option value="">-- Select Date --</option>
+                            <option value="">-- Pilih Tanggal --</option>
                             @foreach($schedules as $schedule)
                                 @php $isAvailable = $schedule->isAvailable(); @endphp
                                 <option value="{{ $schedule->id }}" data-date="{{ $schedule->event_date->format('Y-m-d') }}" {{ !$isAvailable ? 'disabled' : '' }}
                                     class="{{ !$isAvailable ? 'text-gray-400 bg-gray-100' : '' }}">
                                     {{ $schedule->event_date->format('d F Y') }} ({{ $schedule->next_slot }})
-                                    {{ !$isAvailable ? '(Full)' : '' }}
+                                    {{ !$isAvailable ? '(Penuh)' : '' }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="mb-6">
-                        <label class="block mb-2 font-semibold">Promo Code</label>
+                        <label class="block mb-2 font-semibold">Kode Promo</label>
                         <div class="flex gap-2">
                             <input type="text" id="promo_code" name="promo_code"
-                                class="w-full border rounded-lg px-4 py-3 uppercase" placeholder="Enter code"
+                                class="w-full border rounded-lg px-4 py-3 uppercase" placeholder="Masukkan kode"
                                 onchange="checkPromo()">
                             <button type="button" onclick="checkPromo('manual')"
-                                class="bg-gray-200 px-4 rounded hover:bg-gray-300">Apply</button>
+                                class="bg-gray-200 px-4 rounded hover:bg-gray-300">Terapkan</button>
                         </div>
                         <p id="promo_message" class="text-sm mt-1"></p>
                     </div>
 
                     <div class="mb-6">
-                        <label class="block mb-2 font-semibold">Notes</label>
+                        <label class="block mb-2 font-semibold">Catatan</label>
                         <textarea name="notes" class="w-full border rounded-lg px-4 py-3"
-                            placeholder="Optional notes..."></textarea>
+                            placeholder="Catatan opsional..."></textarea>
                     </div>
 
                     <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700">
-                        Submit Booking
+                        Kirim Pemesanan
                     </button>
                 </form>
             </div>
         </div>
 
-        {{-- Right Column: Order Summary --}}
+        {{-- Kolom Kanan: Ringkasan Pesanan --}}
         <div class="lg:col-span-1">
             <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6 sticky top-6">
-                <h3 class="text-lg font-bold mb-4 border-b pb-2">Order Summary</h3>
+                <h3 class="text-lg font-bold mb-4 border-b pb-2">Ringkasan Pesanan</h3>
 
                 <div id="summary_items" class="space-y-2 mb-4 text-sm">
                     <div class="flex justify-between">
-                        <span class="text-gray-600">Service</span>
+                        <span class="text-gray-600">Layanan</span>
                         <span class="font-medium" id="summary_service">-</span>
                     </div>
                     <div id="summary_addons_list" class="space-y-1 pl-2 border-l-2 border-gray-100 mt-2">
-                        <!-- Addons injected here -->
+                        <!-- Addon dimasukkan di sini -->
                     </div>
                 </div>
 
-                <!-- Yield Summary Section -->
+                <!-- Bagian Ringkasan Hasil -->
                 <div class="bg-gray-50 p-3 rounded mb-4 text-sm">
-                    <h4 class="font-semibold text-gray-700 mb-2">Total Items (Yield):</h4>
+                    <h4 class="font-semibold text-gray-700 mb-2">Total Item (Hasil):</h4>
                     <ul id="yield_summary_list" class="list-disc list-inside text-gray-600 space-y-1">
                         <li>-</li>
                     </ul>
@@ -140,7 +140,7 @@
                     </div>
                     <div class="flex justify-between text-green-600 font-medium" id="summary_discount_row"
                         style="display:none;">
-                        <span>Discount <span id="promo_name_display" class="text-xs text-gray-500"></span></span>
+                        <span>Diskon <span id="promo_name_display" class="text-xs text-gray-500"></span></span>
                         <span id="summary_discount">- Rp 0</span>
                     </div>
                     <div class="flex justify-between text-xl font-bold text-gray-800 mt-2 pt-2 border-t">
@@ -173,12 +173,12 @@
 
             if (!selectedOption.value) {
                 addonsSection.classList.add('hidden');
-                checkPromo(); // Check promo again as service Changed
+                checkPromo(); // Cek promo lagi karena layanan berubah
                 calculateTotal();
                 return;
             }
 
-            // Show relevant addons
+            // Tampilkan addon yang relevan
             const validAddons = JSON.parse(selectedOption.getAttribute('data-addons') || '[]');
 
             let hasAddons = false;
@@ -191,7 +191,7 @@
                     hasAddons = true;
                 } else {
                     item.classList.add('hidden');
-                    input.value = 0; // Reset hidden addons
+                    input.value = 0; // Reset addon tersembunyi
                 }
             });
 
@@ -201,7 +201,7 @@
                 addonsSection.classList.add('hidden');
             }
 
-            checkPromo(); // Check promo again as service Changed
+            checkPromo(); // Cek promo lagi karena layanan berubah
             calculateTotal();
         }
 
@@ -209,7 +209,7 @@
             const serviceSelect = document.getElementById('service_select');
             const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
 
-            // Summary Elements
+            // Elemen Ringkasan
             const summaryService = document.getElementById('summary_service');
             const summaryAddonsList = document.getElementById('summary_addons_list');
             const summarySubtotal = document.getElementById('summary_subtotal');
@@ -219,16 +219,16 @@
             const yieldSummaryList = document.getElementById('yield_summary_list');
 
             let subtotal = 0;
-            summaryAddonsList.innerHTML = ''; // Clear list
+            summaryAddonsList.innerHTML = ''; // Hapus daftar
             let totalYield = {};
 
-            // Base Service
+            // Layanan Dasar
             if (selectedOption.value) {
                 let price = parseFloat(selectedOption.getAttribute('data-price'));
                 subtotal += price;
                 summaryService.textContent = `${selectedOption.text.split('(')[0]} (Rp ${price.toLocaleString('id-ID')})`;
 
-                // Service Yield
+                // Hasil Layanan
                 let serviceYield = JSON.parse(selectedOption.getAttribute('data-yield') || '[]');
                 serviceYield.forEach(item => {
                     totalYield[item.name] = (totalYield[item.name] || 0) + item.quantity;
@@ -238,7 +238,7 @@
                 summaryService.textContent = '-';
             }
 
-            // Addons
+            // Addon
             const addonInputs = document.querySelectorAll('.addon-qty');
             addonInputs.forEach(input => {
                 let qty = parseInt(input.value) || 0;
@@ -247,13 +247,13 @@
                     let totalAddonPrice = price * qty;
                     subtotal += totalAddonPrice;
 
-                    // Add to summary
+                    // Tambahkan ke ringkasan
                     let div = document.createElement('div');
                     div.className = 'flex justify-between text-xs text-gray-500';
                     div.innerHTML = `<span>+ ${input.getAttribute('data-name')} x${qty}</span><span>Rp ${totalAddonPrice.toLocaleString('id-ID')}</span>`;
                     summaryAddonsList.appendChild(div);
 
-                    // Addon Yield
+                    // Hasil Addon
                     let addonItemDiv = input.closest('.addon-item');
                     let addonYield = JSON.parse(addonItemDiv.getAttribute('data-yield') || '[]');
                     addonYield.forEach(item => {
@@ -262,7 +262,7 @@
                 }
             });
 
-            // Update Yield Display
+            // Perbarui Tampilan Hasil
             yieldSummaryList.innerHTML = '';
             let hasYield = false;
             for (const [name, qty] of Object.entries(totalYield)) {
@@ -276,7 +276,7 @@
 
             summarySubtotal.textContent = 'Rp ' + subtotal.toLocaleString('id-ID');
 
-            // Discount
+            // Diskon
             let discountAmount = 0;
             if (currentPromo) {
                 if (currentPromo.discount_amount) {
@@ -284,7 +284,7 @@
                 } else if (currentPromo.discount_percentage) {
                     discountAmount = subtotal * (parseFloat(currentPromo.discount_percentage) / 100);
                 }
-                // Cap at subtotal
+                // Batasi pada subtotal
                 discountAmount = Math.min(discountAmount, subtotal);
             }
 
@@ -311,10 +311,10 @@
             const scheduleId = scheduleSelect.value;
             const manualCode = promoCodeInput.value.trim();
 
-            // Clear previous message
+            // Hapus pesan sebelumnya
             messageEl.textContent = '';
 
-            // Clear current promo if inputs missing, unless checking manual code only
+            // Hapus promo saat ini jika input tidak lengkap, kecuali hanya memeriksa kode manual
             if (!serviceId || !scheduleId) {
                 currentPromo = null;
                 calculateTotal();
@@ -323,9 +323,9 @@
 
             const scheduleDate = scheduleSelect.options[scheduleSelect.selectedIndex].getAttribute('data-date');
 
-            // Logic:
-            // 1. If manual code entered, validate that code specificially.
-            // 2. If NO manual code, check for AUTO promos.
+            // Logika:
+            // 1. Jika kode manual dimasukkan, validasi kode tersebut secara khusus.
+            // 2. Jika TIDAK ada kode manual, periksa promo OTOMATIS.
 
             try {
                 const response = await fetch('{{ route("api.check-promo") }}', {
@@ -347,23 +347,23 @@
                     currentPromo = data.promo;
                     if (mode === 'manual') {
                         messageEl.className = 'text-green-600 text-sm mt-1';
-                        messageEl.textContent = 'Promo Applied: ' + data.promo.code;
-                        promoCodeInput.value = data.promo.code; // Fill in auto code if found
+                        messageEl.textContent = 'Promo Diterapkan: ' + data.promo.code;
+                        promoCodeInput.value = data.promo.code; // Isi kode otomatis jika ditemukan
                     } else {
-                        // Auto mode: Only notify if we found something and user didn't type anything
+                        // Mode otomatis: Hanya beritahu jika menemukan sesuatu dan pengguna tidak mengetik apapun
                         if (manualCode === '') {
                             promoCodeInput.value = data.promo.code;
-                            messageEl.textContent = ''; // Don't spam success message for auto
+                            messageEl.textContent = ''; // Jangan spam pesan sukses untuk otomatis
                         }
                     }
                 } else {
                     currentPromo = null;
                     if (mode === 'manual' && manualCode !== '') {
                         messageEl.className = 'text-red-600 text-sm mt-1';
-                        messageEl.textContent = 'Invalid Promo Code for selected date/service.';
+                        messageEl.textContent = 'Kode Promo tidak valid untuk tanggal/layanan yang dipilih.';
                     } else if (mode === 'auto' && manualCode !== '') {
-                        // If there's a manual code but it's not valid for auto, clear it.
-                        // This prevents an invalid manual code from persisting if user changes service/date.
+                        // Jika ada kode manual tapi tidak valid untuk otomatis, hapus.
+                        // Ini mencegah kode manual yang tidak valid bertahan jika pengguna mengubah layanan/tanggal.
                         promoCodeInput.value = '';
                     }
                 }
@@ -371,15 +371,15 @@
                 calculateTotal();
 
             } catch (error) {
-                console.error('Promo Check Error', error);
+                console.error('Error Pemeriksaan Promo', error);
                 messageEl.className = 'text-red-600 text-sm mt-1';
-                messageEl.textContent = 'An error occurred while checking promo.';
+                messageEl.textContent = 'Terjadi kesalahan saat memeriksa promo.';
             }
         }
 
-        // Initial calls
+        // Panggilan awal
         document.addEventListener('DOMContentLoaded', () => {
-            updateForm(); // This will also call calculateTotal and checkPromo
+            updateForm(); // Ini juga akan memanggil calculateTotal dan checkPromo
         });
     </script>
 @endsection

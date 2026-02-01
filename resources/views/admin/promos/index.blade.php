@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Promos')
-@section('header', 'Manage Promos')
+@section('title', 'Promo')
+@section('header', 'Kelola Promo')
 
 @section('content')
     <div class="mb-4">
         <a href="{{ route('admin.promos.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            + Add New Promo
+            + Tambah Promo Baru
         </a>
     </div>
 
@@ -14,12 +14,12 @@
         <table class="w-full">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-left">Code</th>
-                    <th class="px-6 py-3 text-left">Discount</th>
-                    <th class="px-6 py-3 text-left">Validity</th>
-                    <th class="px-6 py-3 text-left">Usage</th>
-                    <th class="px-6 py-3 text-left">Auto?</th>
-                    <th class="px-6 py-3 text-left">Actions</th>
+                    <th class="px-6 py-3 text-left">Kode</th>
+                    <th class="px-6 py-3 text-left">Diskon</th>
+                    <th class="px-6 py-3 text-left">Masa Berlaku</th>
+                    <th class="px-6 py-3 text-left">Penggunaan</th>
+                    <th class="px-6 py-3 text-left">Otomatis?</th>
+                    <th class="px-6 py-3 text-left">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y">
@@ -32,7 +32,7 @@
                             @else
                                 Rp {{ number_format($promo->discount_amount, 0, ',', '.') }}
                             @endif
-                            <div class="text-xs text-gray-500">{{ $promo->service ? $promo->service->name : 'All Services' }}
+                            <div class="text-xs text-gray-500">{{ $promo->service ? $promo->service->name : 'Semua Layanan' }}
                             </div>
                         </td>
                         <td class="px-6 py-4 text-sm">
@@ -44,16 +44,16 @@
                         <td class="px-6 py-4">
                             <span
                                 class="px-2 py-1 text-xs rounded {{ $promo->is_auto ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                {{ $promo->is_auto ? 'Auto' : 'Manual' }}
+                                {{ $promo->is_auto ? 'Otomatis' : 'Manual' }}
                             </span>
                         </td>
                         <td class="px-6 py-4 flex gap-2">
                             <a href="{{ route('admin.promos.edit', $promo) }}" class="text-yellow-600 hover:underline">Edit</a>
                             <form action="{{ route('admin.promos.destroy', $promo) }}" method="POST"
-                                onsubmit="return confirm('Delete this promo?');">
+                                onsubmit="return confirm('Hapus promo ini?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                                <button type="submit" class="text-red-600 hover:underline">Hapus</button>
                             </form>
                         </td>
                     </tr>

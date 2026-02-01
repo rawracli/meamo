@@ -1,7 +1,7 @@
 @extends('user.layouts.dashboard')
 
-@section('title', 'Profile')
-@section('header', 'Profile')
+@section('title', 'Profil')
+@section('header', 'Profil')
 
 @section('content')
     <div class="space-y-6">

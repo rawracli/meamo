@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Create Service')
-@section('header', 'Create New Service')
+@section('title', 'Buat Layanan')
+@section('header', 'Buat Layanan Baru')
 
 @section('content')
     <div class="bg-white rounded-lg shadow p-6 max-w-4xl">
@@ -10,27 +10,27 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label class="block mb-2 font-semibold">Service Name *</label>
+                    <label class="block mb-2 font-semibold">Nama Layanan *</label>
                     <input type="text" name="name" class="w-full border rounded px-3 py-2" required>
                     @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block mb-2 font-semibold">Price (Rp) *</label>
+                    <label class="block mb-2 font-semibold">Harga (Rp) *</label>
                     <input type="number" name="price" class="w-full border rounded px-3 py-2" min="0" required>
                     @error('price') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <div class="mb-6">
-                <label class="block mb-2 font-semibold">Description</label>
+                <label class="block mb-2 font-semibold">Deskripsi</label>
                 <textarea name="description" class="w-full border rounded px-3 py-2" rows="2"></textarea>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6 border-t pt-4">
-                {{-- Base Items Section --}}
+                {{-- Bagian Item Dasar --}}
                 <div>
-                    <label class="block mb-4 font-semibold text-lg">Base Items (Yield)</label>
-                    <p class="text-sm text-gray-500 mb-4">What does this service include?</p>
+                    <label class="block mb-4 font-semibold text-lg">Item Dasar (Hasil)</label>
+                    <p class="text-sm text-gray-500 mb-4">Apa saja yang termasuk dalam layanan ini?</p>
 
                     <div class="space-y-3">
                         @foreach($items as $index => $item)
@@ -48,10 +48,10 @@
                     </div>
                 </div>
 
-                {{-- Allowed Addons Section --}}
+                {{-- Bagian Tambahan yang Diizinkan --}}
                 <div>
-                    <label class="block mb-4 font-semibold text-lg">Allowed Addons</label>
-                    <p class="text-sm text-gray-500 mb-4">Which addons can be added to this service?</p>
+                    <label class="block mb-4 font-semibold text-lg">Tambahan yang Diizinkan</label>
+                    <p class="text-sm text-gray-500 mb-4">Tambahan mana yang bisa ditambahkan ke layanan ini?</p>
 
                     <div class="space-y-3 max-h-96 overflow-y-auto">
                         @foreach($addons as $addon)
@@ -81,8 +81,8 @@
             </script>
 
             <div class="flex justify-end gap-2">
-                <a href="{{ route('admin.services.index') }}" class="px-4 py-2 bg-gray-200 rounded">Cancel</a>
-                <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save Service</button>
+                <a href="{{ route('admin.services.index') }}" class="px-4 py-2 bg-gray-200 rounded">Batal</a>
+                <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Simpan Layanan</button>
             </div>
         </form>
     </div>
